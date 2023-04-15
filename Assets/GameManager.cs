@@ -93,14 +93,14 @@ public class GameManager : MonoBehaviour
         WinScreen.SetActive(false);
 
         RevealedCards = 0;
-        TargetPairs = 9;
         FoundPairs = 0;
         
         // Fetch all cards in game
         List<GameObject> Cards = new List<GameObject>();
         Cards.AddRange(GameObject.FindGameObjectsWithTag("Card"));
+        TargetPairs = Cards.Count / 2;
 
-        while(Cards.Count != 0)
+        while (Cards.Count != 0)
         {
             // Fetch random index from materials that isn't already selected
             int matIdx;
