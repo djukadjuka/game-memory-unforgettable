@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c8fd20d3fa445214ba661df3f0b333be
+guid: 28db5864466485e4b868c4a1352930bb
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Day Roman
+  - go wild
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
