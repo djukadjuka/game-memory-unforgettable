@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
 
     public CardBehavior card1;
     public CardBehavior card2;
+    public GameObject CardHolder;
 
     public void HideCards()
     {
@@ -70,6 +71,8 @@ public class GameManager : MonoBehaviour
     public void Win()
     {
         WinScreen.SetActive(true);
+        CardHolder.SetActive(false);
+
         this.WinScreenText.SetText($"Congratulations! It took you {(int)elapsedTimeFloat} seconds to finish!");
     }
 
