@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class CardBehavior : MonoBehaviour
 {
+    // Reference to game manager for whatever reason
     public GameManager gm;
 
+    /// Animator for rotating cards
     [SerializeField]
     public Animator animator;
 
@@ -23,6 +25,7 @@ public class CardBehavior : MonoBehaviour
 
     private void OnMouseOver()
     {
+        // If mouse is over card and is clicked, reveal card if it can be revealed (no other two cards are revealed)
         if (Input.GetMouseButtonDown(0))
         {
             if (!animator.GetBool("IsRevealed") && gm.RevealCard(this))
