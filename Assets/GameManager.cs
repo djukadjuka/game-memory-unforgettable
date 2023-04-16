@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    #region Main Logic Items
     /// Currently revealed cards (for finding pairs)
     public int RevealedCards { get; set; }
     /// Amount of target pairs to find to win the game
@@ -14,13 +15,46 @@ public class GameManager : MonoBehaviour
     /// Currently found pairs in game
     public int FoundPairs { get; set; }
 
+    #endregion
+
+    #region Points System
     /// Total points the player has aquired
     public float TotalPoints { get; set; }
 
+    #endregion
+
+    #region Cards
+    [Header("Cards")]
     public CardBehavior card1;
     public CardBehavior card2;
     public GameObject CardHolder;
 
+    #endregion
+
+    #region UI
+    [Header("UI Stuff")]
+    [SerializeField]
+    public TextMeshProUGUI WinScreenText; // For writing congrats
+    [SerializeField]
+    public TextMeshProUGUI elapsedTimeText; // For increasing and writing elapsed time in UI
+    [SerializeField]
+    public GameObject WinScreen; // where to place all win stuff
+    [SerializeField]
+    public float elapsedTimeFloat = 0; // How much time has passed since restart
+    [SerializeField]
+    public GameObject GameRunningUIItems;
+
+    #endregion
+
+    #region Materials
+    [Header("Materials")]
+    [SerializeField]
+    public List<Material> Materials = new List<Material>(); // All card faces
+    private List<int> SelectedMaterials = new List<int>(); // All selected card faces (used in cards)
+
+    #endregion
+
+    #region All Functions
     /// <summary>
     /// Calls hide on all cardbehavior references, sets them to null and resets number of revealed cards
     /// </summary>
@@ -38,7 +72,7 @@ public class GameManager : MonoBehaviour
     public bool RevealCard(CardBehavior c)
     {
         // Check if two or more cards are already revealed, fail at revealing
-        if(RevealedCards >= 2)
+        if (RevealedCards >= 2)
         {
             return false;
         }
@@ -68,9 +102,9 @@ public class GameManager : MonoBehaviour
                 RevealedCards = 0;
                 card1 = null;
                 card2 = null;
-                   
+
                 // Check if found pairs is the same as target, win if true
-                if(FoundPairs == TargetPairs)
+                if (FoundPairs == TargetPairs)
                 {
                     Win();
                 }
@@ -94,19 +128,6 @@ public class GameManager : MonoBehaviour
         // Write congradulatory text
         this.WinScreenText.SetText($"Congratulations! It took you {(int)elapsedTimeFloat} seconds to finish!");
     }
-
-    [SerializeField]
-    public TextMeshProUGUI WinScreenText; // For writing congrats
-    [SerializeField]
-    public TextMeshProUGUI elapsedTimeText; // For increasing and writing elapsed time in UI
-    [SerializeField]
-    public GameObject WinScreen; // where to place all win stuff
-    [SerializeField]
-    public float elapsedTimeFloat = 0; // How much time has passed since restart
-
-    [SerializeField]
-    public List<Material> Materials = new List<Material>(); // All card faces
-    public List<int> SelectedMaterials = new List<int>(); // All selected card faces (used in cards)
 
 
     // Start is called before the first frame update
@@ -175,4 +196,6 @@ public class GameManager : MonoBehaviour
     {
         Application.Quit();
     }
+
+    #endregion
 }
