@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -40,7 +41,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     public TextMeshProUGUI elapsedTimeTMP; // For increasing and writing elapsed time in UI
     [SerializeField]
-    public TextMeshProUGUI NumberOfTurnsTMP;
+    public TextMeshProUGUI NumberOfTurnsTMP; // For increasing and writing number of turns in UI
+    [SerializeField]
+    public TextMeshProUGUI NumberOfPointsTMP; // Man guess..
     [SerializeField]
     public GameObject WinScreen; // where to place all win stuff
     [SerializeField]
@@ -84,7 +87,7 @@ public class GameManager : MonoBehaviour
             int matIdx;
             while (true)
             {
-                matIdx = Random.Range(0, Materials.Count);
+                matIdx = UnityEngine.Random.Range(0, Materials.Count);
                 if (SelectedMaterials.Contains(matIdx)) continue;
 
                 SelectedMaterials.Add(matIdx);
@@ -92,14 +95,14 @@ public class GameManager : MonoBehaviour
             }
 
             // Fetch random card from available cards
-            int card1idx = Random.Range(0, Cards.Count);
+            int card1idx = UnityEngine.Random.Range(0, Cards.Count);
             // Set its card-face components material to the random material selected from Materials
             Cards[card1idx].transform.Find("card-face").gameObject.GetComponent<Renderer>().material = Materials[matIdx];
             // Remove card from collection, as to not fetch it again
             Cards.Remove(Cards[card1idx]);
 
             // Repeat procedure - makes two random cards have same face
-            int card2idx = Random.Range(0, Cards.Count);
+            int card2idx = UnityEngine.Random.Range(0, Cards.Count);
             Cards[card2idx].transform.Find("card-face").gameObject.GetComponent<Renderer>().material = Materials[matIdx];
             Cards.Remove(Cards[card2idx]);
         }
@@ -212,6 +215,7 @@ public class GameManager : MonoBehaviour
     public void AddPoints()
     {
         TotalPoints += PointsPerPair * GetTimePointCoeff();
+        this.NumberOfPointsTMP.SetText($"{Math.Round(TotalPoints, 2)}");
     }
 
     public float GetTimePointCoeff()
