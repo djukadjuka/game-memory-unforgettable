@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     /// Currently found pairs in game
     public int FoundPairs { get; set; }
 
+    public int NumberOfTurns { get; set; }
     #endregion
 
     #region Points System
@@ -55,81 +56,6 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region All Functions
-    /// <summary>
-    /// Calls hide on all cardbehavior references, sets them to null and resets number of revealed cards
-    /// </summary>
-    public void HideCards()
-    {
-        card1.Hide();
-        card2.Hide();
-
-        RevealedCards = 0;
-
-        card1 = null;
-        card2 = null;
-    }
-
-    public bool RevealCard(CardBehavior c)
-    {
-        // Check if two or more cards are already revealed, fail at revealing
-        if (RevealedCards >= 2)
-        {
-            return false;
-        }
-
-        // Check which card is not revealed and set it
-        if (card1 == null)
-        {
-            card1 = c;
-        }
-        else
-        {
-            card2 = c;
-        }
-
-        // Increase number of revealed cards
-        RevealedCards++;
-
-        // If two cards are revealed - process if faces are the same
-        if (RevealedCards == 2)
-        {
-            // Check material names for revealed cards
-            if (card1.transform.Find("card-face").gameObject.GetComponent<Renderer>().material.name ==
-            card2.transform.Find("card-face").gameObject.GetComponent<Renderer>().material.name)
-            {
-                // Increase number of pairs, reset other items
-                FoundPairs++;
-                RevealedCards = 0;
-                card1 = null;
-                card2 = null;
-
-                // Check if found pairs is the same as target, win if true
-                if (FoundPairs == TargetPairs)
-                {
-                    Win();
-                }
-            }
-            else
-            {
-                // Invoke - call a procedure after enough time has passed (1sec) without blocking game
-                Invoke("HideCards", 1);
-            }
-        }
-
-        return true;
-    }
-
-    public void Win()
-    {
-        // Show the win screen and hide all cards by hiding the card holder
-        WinScreen.SetActive(true);
-        CardHolder.SetActive(false);
-        GameRunningUIItems.SetActive(false);
-
-        // Write congradulatory text
-        this.WinScreenText.SetText($"Congratulations! It took you {(int)elapsedTimeFloat} seconds to finish!");
-    }
-
 
     // Start is called before the first frame update
     void Start()
@@ -186,6 +112,85 @@ public class GameManager : MonoBehaviour
             elapsedTimeText.SetText($"{(int)elapsedTimeFloat}");
         }
     }
+    
+    /// <summary>
+    /// Calls hide on all cardbehavior references, sets them to null and resets number of revealed cards
+    /// </summary>
+    public void HideCards()
+    {
+        card1.Hide();
+        card2.Hide();
+
+        RevealedCards = 0;
+
+        card1 = null;
+        card2 = null;
+    }
+
+    public bool RevealCard(CardBehavior c)
+    {
+        // Check if two or more cards are already revealed, fail at revealing
+        if (RevealedCards >= 2)
+        {
+            return false;
+        }
+
+        // Check which card is not revealed and set it
+        if (card1 == null)
+        {
+            card1 = c;
+        }
+        else
+        {
+            // Increase number of turns when second card is revealed
+            NumberOfTurns++;
+            card2 = c;
+        }
+
+        // Increase number of revealed cards
+        RevealedCards++;
+
+        // If two cards are revealed - process if faces are the same
+        if (RevealedCards == 2)
+        {
+            // Check material names for revealed cards
+            if (card1.transform.Find("card-face").gameObject.GetComponent<Renderer>().material.name ==
+            card2.transform.Find("card-face").gameObject.GetComponent<Renderer>().material.name)
+            {
+                // Increase number of pairs, reset other items
+                FoundPairs++;
+                RevealedCards = 0;
+                card1 = null;
+                card2 = null;
+
+                // Check if found pairs is the same as target, win if true
+                if (FoundPairs == TargetPairs)
+                {
+                    Invoke("Win", 1);
+                    //Win();
+                }
+            }
+            else
+            {
+                // Invoke - call a procedure after enough time has passed (1sec) without blocking game
+                Invoke("HideCards", 1);
+            }
+        }
+
+        return true;
+    }
+
+    public void Win()
+    {
+        // Show the win screen and hide all cards by hiding the card holder
+        WinScreen.SetActive(true);
+        CardHolder.SetActive(false);
+        GameRunningUIItems.SetActive(false);
+
+        // Write congradulatory text
+        this.WinScreenText.SetText($"Congratulations! It took you {(int)elapsedTimeFloat} seconds to finish!");
+    }
+
 
     public void Restart()
     {

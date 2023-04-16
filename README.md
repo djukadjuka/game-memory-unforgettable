@@ -8,17 +8,17 @@ Points are based on the time it took to find a pair. Each pair brings 10 points,
 
 Basic Mechanics
 
- - [ ] Open two cards per turn
- - [ ] Opening same two cards - Cards stay open - Add Points to player
- - [ ] Opening different two cards - Cards close after delay
+ - [x] Open two cards per turn
+ - [x] Opening same two cards - Cards stay open - Add Points to player
+ - [x] Opening different two cards - Cards close after delay
  - [ ] Opening any two cards - Increase number of turns
- - [ ] Implement elapsed time since game started
+ - [x] Implement elapsed time since game started
  - [ ] Button for restarting game
- - [ ] Shuffle cards and their positions on game start/restart
+ - [x] Shuffle cards and their positions on game start/restart
  - [ ] Background music
  - [ ] Sound effect after opening any one card
  - [ ] Build game for mobile and for PC
- - [ ] Put project on git and have normal commit messages
- - [ ] End of game is when player opens all cards
- - [ ] At end of game, congratulate player based on number of points
+ - [/] Put project on git and have normal commit messages
+ - [x] End of game is when player opens all cards
+ - [/] At end of game, congratulate player based on number of points
  - [ ] Number of points is multiplied by elapsed time factor [eg, seconds under 60 is 1 \* points, seconds between 60 and 120 is 0.9 \* points..]
