@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     #region Points System
     /// Total points the player has aquired
     public float TotalPoints { get; set; }
+    public const float PointsPerPair = 10.0f;
 
     #endregion
 
@@ -160,8 +161,11 @@ public class GameManager : MonoBehaviour
             if (card1.transform.Find("card-face").gameObject.GetComponent<Renderer>().material.name ==
             card2.transform.Find("card-face").gameObject.GetComponent<Renderer>().material.name)
             {
-                // Increase number of pairs, reset other items
+                // Increase number of pairs and number of points
                 FoundPairs++;
+                AddPoints();
+
+                // Reset items
                 RevealedCards = 0;
                 card1 = null;
                 card2 = null;
@@ -170,7 +174,6 @@ public class GameManager : MonoBehaviour
                 if (FoundPairs == TargetPairs)
                 {
                     Invoke("Win", 1);
-                    //Win();
                 }
             }
             else
@@ -204,6 +207,21 @@ public class GameManager : MonoBehaviour
     public void Quit()
     {
         Application.Quit();
+    }
+
+    public void AddPoints()
+    {
+        TotalPoints += PointsPerPair * GetTimePointCoeff();
+    }
+
+    public float GetTimePointCoeff()
+    {
+        float low1 = 5 * 60; // if you dont win in 5 minutes seek proffesional help
+        float high1 = 0.0f; // Impossible to finish in 0 seconds but it will still be 0.9 or something if finished in 10 seconds or so
+        float low2 = 0.5f; // worst points and worst coeff for longer time
+        float high2 = 1.0f; // Max points and best coeff for shorter time
+
+        return low2 + (elapsedTimeFloat - low1) * (high2 - low2) / (high1 - low1);
     }
 
     #endregion
