@@ -2256,6 +2256,7 @@ MonoBehaviour:
   elapsedTimeText: {fileID: 246540935}
   WinScreen: {fileID: 1422216499}
   elapsedTimeFloat: 0
+  GameRunningUIItems: {fileID: 1013757551}
   Materials:
   - {fileID: 2100000, guid: 2912b8b41ddc31a41af4c7f494f9801b, type: 2}
   - {fileID: 2100000, guid: f620399dba35b6040a81a98cbfb40752, type: 2}
@@ -2266,7 +2267,6 @@ MonoBehaviour:
   - {fileID: 2100000, guid: eba349ca30e9e214f9a5f8c293384f77, type: 2}
   - {fileID: 2100000, guid: 34c380b08c944994abb0455217e3b944, type: 2}
   - {fileID: 2100000, guid: 229375be2ec64bd4e9d9799c98754454, type: 2}
-  SelectedMaterials: 
 --- !u!1 &1013757551
 GameObject:
   m_ObjectHideFlags: 0

@@ -124,6 +124,7 @@ public class GameManager : MonoBehaviour
         // Show the win screen and hide all cards by hiding the card holder
         WinScreen.SetActive(true);
         CardHolder.SetActive(false);
+        GameRunningUIItems.SetActive(false);
 
         // Write congradulatory text
         this.WinScreenText.SetText($"Congratulations! It took you {(int)elapsedTimeFloat} seconds to finish!");
