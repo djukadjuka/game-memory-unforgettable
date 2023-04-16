@@ -9,6 +9,8 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     #region Main Logic Items
+    /// If this much time passes then you get worst coefficient when multiplying points (2 minutes)
+    public const float ForgettableTime = 60*2;
     /// Currently revealed cards (for finding pairs)
     public int RevealedCards { get; set; }
     /// Amount of target pairs to find to win the game
@@ -220,9 +222,14 @@ public class GameManager : MonoBehaviour
 
     public float GetTimePointCoeff()
     {
-        float low1 = 5 * 60; // if you dont win in 5 minutes seek proffesional help
+        if(elapsedTimeFloat >= ForgettableTime)
+        {
+            return 0.5f;
+        }
+
+        float low1 = ForgettableTime; // if you dont win in 5 minutes seek proffesional help
         float high1 = 0.0f; // Impossible to finish in 0 seconds but it will still be 0.9 or something if finished in 10 seconds or so
-        float low2 = 0.5f; // worst points and worst coeff for longer time
+        float low2 = 0.1f; // worst points and worst coeff for longer time
         float high2 = 1.0f; // Max points and best coeff for shorter time
 
         return low2 + (elapsedTimeFloat - low1) * (high2 - low2) / (high1 - low1);
