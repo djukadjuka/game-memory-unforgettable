@@ -157,9 +157,12 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Increase elapsed time
-        elapsedTimeFloat += Time.deltaTime;
-        elapsedTimeText.SetText($"{(int)elapsedTimeFloat}");
+        // Increase elapsed time if all target pairs found
+        if (this.TargetPairs > this.FoundPairs)
+        {
+            elapsedTimeFloat += Time.deltaTime;
+            elapsedTimeText.SetText($"{(int)elapsedTimeFloat}");
+        }
     }
 
     public void Restart()
