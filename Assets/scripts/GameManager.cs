@@ -23,7 +23,18 @@ public class GameManager : MonoBehaviour
 
     #region Points System
     /// Total points the player has aquired
-    public float TotalPoints { get; set; }
+    private float _totalPoints;
+    public float TotalPoints
+    {
+        get
+        {
+            return (float)Math.Round(_totalPoints, 2);
+        }
+        set
+        {
+            _totalPoints = value;
+        }
+    }
     public const float PointsPerPair = 10.0f;
 
     #endregion
@@ -198,8 +209,27 @@ public class GameManager : MonoBehaviour
         CardHolder.SetActive(false);
         GameRunningUIItems.SetActive(false);
 
+        float w1 = 12, w2 = 14, w3 = 16;
+        float useTime = (float) Math.Round(elapsedTimeFloat);
+        string congratsText = $"Congratulations! You got {TotalPoints} points!\nIt {(useTime < w1? "only ": "")}took you {useTime} seconds to finish.";
+        string congratsTextComment = "";
+        if(elapsedTimeFloat <= w1)
+        {
+            congratsTextComment += "\nWhat an unforgettable score!";
+        }else if (elapsedTimeFloat <= w2)
+        {
+            congratsTextComment += "\nNot bad at all!";
+        }else if(elapsedTimeFloat <= w3)
+        {
+            congratsTextComment += "\nBut I think you can do better!";
+        }
+        else
+        {
+            congratsTextComment += "\nPerhaps you should seek professional help.";
+        }
+
         // Write congradulatory text
-        this.WinScreenText.SetText($"Congratulations! It took you {(int)elapsedTimeFloat} seconds to finish!");
+        this.WinScreenText.SetText($"{congratsText + congratsTextComment}");
     }
 
 
@@ -217,7 +247,7 @@ public class GameManager : MonoBehaviour
     public void AddPoints()
     {
         TotalPoints += PointsPerPair * GetTimePointCoeff();
-        this.NumberOfPointsTMP.SetText($"{Math.Round(TotalPoints, 2)}");
+        this.NumberOfPointsTMP.SetText($"{TotalPoints}");
     }
 
     public float GetTimePointCoeff()
@@ -227,7 +257,7 @@ public class GameManager : MonoBehaviour
             return 0.5f;
         }
 
-        float low1 = ForgettableTime; // if you dont win in 5 minutes seek proffesional help
+        float low1 = ForgettableTime; // if you dont win in 5 minutes seek professional help
         float high1 = 0.0f; // Impossible to finish in 0 seconds but it will still be 0.9 or something if finished in 10 seconds or so
         float low2 = 0.1f; // worst points and worst coeff for longer time
         float high2 = 1.0f; // Max points and best coeff for shorter time

@@ -11,14 +11,14 @@ Basic Mechanics
  - [x] Open two cards per turn
  - [x] Opening same two cards - Cards stay open - Add Points to player
  - [x] Opening different two cards - Cards close after delay
- - [ ] Opening any two cards - Increase number of turns
+ - [x] Opening any two cards - Increase number of turns
  - [x] Implement elapsed time since game started
- - [ ] Button for restarting game
+ - [x] Button for restarting game
  - [x] Shuffle cards and their positions on game start/restart
  - [ ] Background music
  - [ ] Sound effect after opening any one card
  - [ ] Build game for mobile and for PC
- - [/] Put project on git and have normal commit messages
+ - [x] Put project on git and have normal commit messages
  - [x] End of game is when player opens all cards
- - [/] At end of game, congratulate player based on number of points
- - [ ] Number of points is multiplied by elapsed time factor [eg, seconds under 60 is 1 \* points, seconds between 60 and 120 is 0.9 \* points..]
+ - [x] At end of game, congratulate player based on number of points
+ - [x] Number of points is multiplied by elapsed time factor [eg, seconds under 60 is 1 \* points, seconds between 60 and 120 is 0.9 \* points..]
