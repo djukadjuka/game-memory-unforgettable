@@ -37,7 +37,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     public TextMeshProUGUI WinScreenText; // For writing congrats
     [SerializeField]
-    public TextMeshProUGUI elapsedTimeText; // For increasing and writing elapsed time in UI
+    public TextMeshProUGUI elapsedTimeTMP; // For increasing and writing elapsed time in UI
+    [SerializeField]
+    public TextMeshProUGUI NumberOfTurnsTMP;
     [SerializeField]
     public GameObject WinScreen; // where to place all win stuff
     [SerializeField]
@@ -109,7 +111,7 @@ public class GameManager : MonoBehaviour
         if (this.TargetPairs > this.FoundPairs)
         {
             elapsedTimeFloat += Time.deltaTime;
-            elapsedTimeText.SetText($"{(int)elapsedTimeFloat}");
+            elapsedTimeTMP.SetText($"{(int)elapsedTimeFloat}");
         }
     }
     
@@ -144,6 +146,7 @@ public class GameManager : MonoBehaviour
         {
             // Increase number of turns when second card is revealed
             NumberOfTurns++;
+            NumberOfTurnsTMP.SetText($"{NumberOfTurns}");
             card2 = c;
         }
 
