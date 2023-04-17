@@ -47,6 +47,29 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
+    #region Music and Sound Effects
+    public enum SoundEffect
+    {
+        WIN, REVEAL, FOUND_PAIR
+    }
+
+    [Header("Music and Sound Effects")]
+    [SerializeField]
+    public AudioSource SoundEffectsAudioSource;
+
+    [SerializeField]
+    public AudioClip RevealCardAudioClip;
+    [SerializeField]
+    public AudioClip WinAudioClip;
+    [SerializeField]
+    public AudioClip FindPairAudioClip;
+
+    [SerializeField]
+    public AudioSource BackgroundMusicAudioSource;
+    [SerializeField]
+    public AudioClip BackgroundSongAudioClip;
+    #endregion
+
     #region UI
     [Header("UI Stuff")]
     [SerializeField]
@@ -79,6 +102,9 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        BackgroundMusicAudioSource.clip = BackgroundSongAudioClip;
+        BackgroundMusicAudioSource.Play();
+
         // Hide winscreen on start
         WinScreen.SetActive(false);
 
@@ -179,6 +205,7 @@ public class GameManager : MonoBehaviour
             {
                 // Increase number of pairs and number of points
                 FoundPairs++;
+                PlaySoundEffect(SoundEffect.FOUND_PAIR);
                 AddPoints();
 
                 // Reset items
@@ -195,8 +222,14 @@ public class GameManager : MonoBehaviour
             else
             {
                 // Invoke - call a procedure after enough time has passed (1sec) without blocking game
+                PlaySoundEffect(SoundEffect.REVEAL);
                 Invoke("HideCards", 1);
             }
+        }
+        else
+        {
+            // Just play audio clip if its the first card
+            PlaySoundEffect(SoundEffect.REVEAL);
         }
 
         return true;
@@ -205,6 +238,7 @@ public class GameManager : MonoBehaviour
     public void Win()
     {
         // Show the win screen and hide all cards by hiding the card holder
+        PlaySoundEffect(SoundEffect.WIN);
         WinScreen.SetActive(true);
         CardHolder.SetActive(false);
         GameRunningUIItems.SetActive(false);
@@ -263,6 +297,24 @@ public class GameManager : MonoBehaviour
         float high2 = 1.0f; // Max points and best coeff for shorter time
 
         return low2 + (elapsedTimeFloat - low1) * (high2 - low2) / (high1 - low1);
+    }
+
+    public void PlaySoundEffect(SoundEffect soundEffect)
+    {
+        switch (soundEffect)
+        {
+            case SoundEffect.WIN:
+                SoundEffectsAudioSource.PlayOneShot(WinAudioClip);
+                break;
+            case SoundEffect.REVEAL:
+                SoundEffectsAudioSource.PlayOneShot(RevealCardAudioClip);
+                break;
+            case SoundEffect.FOUND_PAIR:
+                SoundEffectsAudioSource.PlayOneShot(FindPairAudioClip);
+                break;
+            default:
+                break;
+        }
     }
 
     #endregion
