@@ -2384,6 +2384,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc8524ba6f9248a419745177051540a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  w1: 40
+  w2: 80
+  w3: 120
   card1: {fileID: 0}
   card2: {fileID: 0}
   CardHolder: {fileID: 1771888725}
@@ -3202,7 +3205,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.01
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -3867,8 +3870,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1771888725}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.00068949, y: 0.028726, z: -25.7}
+  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0.000000104308114}
+  m_LocalPosition: {x: 0.01131315, y: 0.028725997, z: -25.700003}
   m_LocalScale: {x: 0.88509, y: 0.88509, z: 0.88509}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3892,7 +3895,7 @@ Transform:
   - {fileID: 909957183}
   m_Father: {fileID: 0}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &1789505625
 GameObject:
   m_ObjectHideFlags: 0

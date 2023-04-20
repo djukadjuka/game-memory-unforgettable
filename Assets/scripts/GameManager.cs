@@ -37,6 +37,13 @@ public class GameManager : MonoBehaviour
     }
     public const float PointsPerPair = 10.0f;
 
+    // These variables are for final score description
+    // Basically, a different message is displayed if time is between either pair of variables
+    // m1 for time < w1, m2 for w1 < time < w2 ...
+    public float w1 = 40;
+    public float w2 = 40 * 2;
+    public float w3 = 40 * 3;
+
     #endregion
 
     #region Cards
@@ -243,7 +250,6 @@ public class GameManager : MonoBehaviour
         CardHolder.SetActive(false);
         GameRunningUIItems.SetActive(false);
 
-        float w1 = 12, w2 = 14, w3 = 16;
         float useTime = (float) Math.Round(elapsedTimeFloat);
         string congratsText = $"Congratulations! You got {TotalPoints} points!\nIt {(useTime < w1? "only ": "")}took you {useTime} seconds to finish.";
         string congratsTextComment = "";
@@ -265,7 +271,6 @@ public class GameManager : MonoBehaviour
         // Write congradulatory text
         this.WinScreenText.SetText($"{congratsText + congratsTextComment}");
     }
-
 
     public void Restart()
     {
